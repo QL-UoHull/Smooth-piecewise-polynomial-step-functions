@@ -1,10 +1,29 @@
 # Smooth Piecewise Polynomial Step Functions
 
-This repository contains a Python implementation of the recursive smooth step construction provided by the repository owner, together with an interactive plotting demo.
+A research-oriented repository for recursive smooth piecewise polynomial step functions, including theory, reference implementations, examples, and comparative notes.
 
-## Core idea
+## Repository goals
 
-The implementation is based on the recursive definition:
+- document the recursive formulation of the `H(s, n)` family,
+- provide clean reference implementations in Python and other languages,
+- demonstrate the effect of increasing smoothness order `n`,
+- compare this family with standard smoothstep formulations often presented using higher-degree polynomials,
+- collect notes, plots, and supplementary materials connected to the published work.
+
+## Suggested repository structure
+
+- `src/` — source implementations
+- `examples/` — runnable demos and plotting scripts
+- `notebooks/` — exploratory notebooks and visual comparisons
+- `docs/` — derivations, notes, figures, and references
+- `tests/` — verification tests for monotonicity, symmetry, and endpoint behavior
+- `assets/` — images used by the documentation
+
+## Current status
+
+This repository is being organized as a professional research/code companion for the smooth step construction.
+
+## Reference MATLAB definition
 
 ```matlab
 function y=H(s, n)
@@ -24,24 +43,13 @@ else
 end;
 ```
 
-This formulation produces a family of piecewise-polynomial step functions with adjustable smoothness order `n`.
+## Planned additions
 
-## Files
+- Python implementation of `H` and `FF`
+- interactive plotting demo
+- comparison with standard smoothstep families
+- derivation notes extracted from the paper and supporting materials
 
-- `smoothstep_recursive.py` — Python implementation of `H` and `FF`
-- `interactive_plot.py` — interactive Plotly demo showing the effect of varying `n`
-- `requirements.txt` — dependencies for the demo
+## Citation
 
-## Install
-
-```bash
-python -m pip install -r requirements.txt
-```
-
-## Run the interactive demo
-
-```bash
-python interactive_plot.py
-```
-
-This writes an HTML file `smoothstep_interactive.html` that you can open in a browser.
+If you use this repository in academic work, please cite the associated paper and link to this repository.
