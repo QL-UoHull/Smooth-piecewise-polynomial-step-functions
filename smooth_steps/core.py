@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from math import atan, comb, cos, pi, tanh
+from math import atan, comb, cos, exp, pi, tanh
 from typing import Callable, Iterable
 
 
@@ -52,11 +52,9 @@ def _normalize(value: float, start: float, end: float) -> float:
 
 
 def logistic_sigmoid(x: float, steepness: float = 12.0) -> float:
-    import math
-
-    raw = 1.0 / (1.0 + math.exp(-steepness * (clamp01(x) - 0.5)))
-    lo = 1.0 / (1.0 + math.exp(steepness / 2.0))
-    hi = 1.0 / (1.0 + math.exp(-steepness / 2.0))
+    raw = 1.0 / (1.0 + exp(-steepness * (clamp01(x) - 0.5)))
+    lo = 1.0 / (1.0 + exp(steepness / 2.0))
+    hi = 1.0 / (1.0 + exp(-steepness / 2.0))
     return _normalize(raw, lo, hi)
 
 
