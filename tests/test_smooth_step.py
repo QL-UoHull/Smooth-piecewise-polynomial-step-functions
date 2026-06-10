@@ -201,12 +201,27 @@ class TestComparison(unittest.TestCase):
                                           msg=f"Mismatch at x={xi}, order={n}")
 
     def test_recursive_uses_lower_degree(self):
-        """Qualitative: recursive function has lower local degree (different shape)."""
-        # At x = 0.3, order 2: verify they differ (different polynomials)
-        r = float(recursive_step(0.3, 2))
-        c = float(classical_step(0.3, 2))
-        self.assertNotAlmostEqual(r, c, places=5,
-                                  msg="Recursive and classical should differ at interior points")
+        """Recursive and classical produce distinct shapes in the interior.
+
+        Both constructions agree at x=0, 0.5, and 1, but differ elsewhere
+        because they use polynomials of different degrees. This verifies that
+        the implementations are genuinely distinct rather than numerically
+        identical.
+        """
+        x = np.linspace(0.1, 0.4, 20)  # avoid endpoints and midpoint
+        r = recursive_step(x, 2)
+        c = classical_step(x, 2)
+        diff = np.abs(r - c)
+        # All interior points should differ by more than floating-point noise
+        self.assertTrue(
+            np.all(diff > 1e-6),
+            msg="Recursive and classical should differ at all interior points",
+        )
+        # Maximum difference should be substantial (order 0.01+)
+        self.assertGreater(
+            float(np.max(diff)), 0.01,
+            msg="Maximum difference between constructions is unexpectedly small",
+        )
 
 
 if __name__ == "__main__":
