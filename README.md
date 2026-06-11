@@ -4,9 +4,9 @@ Python implementation of **recursive piecewise polynomial smooth step functions*
 
 ## Overview
 
-A smooth step function transitions from 0 to 1 over an interval while remaining smooth at the boundaries — appearing flat (zero derivatives) at each end. These functions appear in computer graphics, geometric modelling, numerical analysis, signal processing, and control theory.
+A smooth step function transitions from 0 to 1 over an interval while remaining smooth at the boundaries — appearing flat (zero derivatives) at each end. These functions appear in computer graphics, geometric modelling, numerical smoothing, and approximation theory.
 
-The classical approach constructs a **single polynomial** of degree $2n+1$ that satisfies endpoint interpolation conditions. This work demonstrates an alternative: a **recursive piecewise polynomial** construction that achieves the same smoothness order using polynomials of roughly **half the degree**, with a natural recursive structure across orders.
+The classical approach constructs a **single polynomial** of degree $2n+1$ that satisfies endpoint interpolation conditions. This work demonstrates an alternative: a **recursive piecewise polynomial** construction with lower degree per piece and a natural hierarchical structure.
 
 | Smoothness | Classical | Recursive |
 |:---:|:---:|:---:|
@@ -101,11 +101,19 @@ All tests verify mathematical properties: boundary values, symmetry, monotonicit
 
 ## Mathematical background
 
-The recursive construction is based on integrating the uniform B-spline density. The order-$n$ smooth step function is:
+The recursive construction is obtained by integrating the cardinal uniform B-spline density $B_n$ of degree $n$. In the notation used in [`smooth_step/recursive.py`](smooth_step/recursive.py),
 
-$$T_n(x) = \frac{1}{(n+1)!} \sum_{j=0}^{n+1} (-1)^j \binom{n+1}{j} \bigl((n+1)x - j\bigr)_+^{\,n+1}$$
+$$B_n(t) = \frac{1}{n!} \sum_{j=0}^{n+1} (-1)^j \binom{n+1}{j} (t-j)_+^{n},$$
 
-where $(u)_+ = \max(u, 0)$.
+where $(u)_+ = \max(u,0)$. Integrating this from $0$ to $t$ gives
+
+$$S_n(t) = \frac{1}{(n+1)!} \sum_{j=0}^{n+1} (-1)^j \binom{n+1}{j} (t-j)_+^{n+1},$$
+
+and the normalised smooth step on $[0,1]$ is therefore
+
+$$T_n(x) = S_n\bigl((n+1)x\bigr) = \frac{1}{(n+1)!} \sum_{j=0}^{n+1} (-1)^j \binom{n+1}{j} \bigl((n+1)x - j\bigr)_+^{\,n+1}.$$
+
+This formula is not introduced here as a new formula; it is the integrated cardinal B-spline truncated-power representation specialised to the unit interval. A standard reference for the underlying B-spline formula is Carl de Boor, *A Practical Guide to Splines*, Springer, revised edition, 2001. The presentation in [`smooth_step/recursive.py`](smooth_step/recursive.py) is consistent with that standard cardinal B-spline representation.
 
 This function is $C^n$ smooth, has $n+1$ polynomial pieces each of degree $n+1$, and satisfies $T_n(0)=0$, $T_n(1)=1$, and $T_n^{(k)}(0)=T_n^{(k)}(1)=0$ for $k=1,\ldots,n$.
 
@@ -114,4 +122,3 @@ For full motivation and analysis — including why the recursive construction is
 ## Contributing
 
 Contributions are welcome. Please open an issue or pull request. When adding new functionality, include corresponding tests and update the demo if appropriate.
-
