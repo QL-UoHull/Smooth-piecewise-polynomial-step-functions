@@ -16,6 +16,9 @@ dependencies = [
 [project.scripts]
 smooth-step-demo = "demo:main"
 
+[tool.setuptools]
+py-modules = ["demo"]
+
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["smooth_step*"]
