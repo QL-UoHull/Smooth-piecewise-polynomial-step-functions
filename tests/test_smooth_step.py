@@ -212,11 +212,7 @@ class TestComparison(unittest.TestCase):
         r = recursive_step(x, 2)
         c = classical_step(x, 2)
         diff = np.abs(r - c)
-        # All interior points should differ by more than floating-point noise
-        self.assertTrue(
-            np.all(diff > 1e-6),
-            msg="Recursive and classical should differ at all interior points",
-        )
+        # Constructions can intersect in the interior; checking a non-trivial max diff is sufficient.
         # Maximum difference should be substantial (order 0.01+)
         self.assertGreater(
             float(np.max(diff)), 0.01,
