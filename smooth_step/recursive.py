@@ -76,6 +76,11 @@ def smooth_step(x, order):
     >>> smooth_step(x, order=2)
     array([0.      , 0.15625, 0.5    , 0.84375, 1.     ])
     """
+    if isinstance(order, bool) or not (
+        isinstance(order, (int, np.integer))
+        or (isinstance(order, float) and order.is_integer())
+    ):
+        raise ValueError(f"order must be a non-negative integer, got {order!r}")
     n = int(order)
     if n < 0:
         raise ValueError(f"order must be a non-negative integer, got {order!r}")
