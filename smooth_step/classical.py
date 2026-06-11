@@ -73,6 +73,11 @@ def smooth_step(x, order):
     >>> smooth_step(x, order=2)  # quintic smootherstep: 10x^3 - 15x^4 + 6x^5
     array([0. , 0.5, 1. ])
     """
+    if isinstance(order, bool) or not (
+        isinstance(order, (int, np.integer))
+        or (isinstance(order, float) and order.is_integer())
+    ):
+        raise ValueError(f"order must be a positive integer, got {order!r}")
     n = int(order)
     if n < 1:
         raise ValueError(f"order must be a positive integer, got {order!r}")
