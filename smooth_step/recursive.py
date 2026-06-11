@@ -85,7 +85,7 @@ def smooth_step(x, order):
     if n < 0:
         raise ValueError(f"order must be a non-negative integer, got {order!r}")
 
-    x = np.asarray(x, dtype=float)
+    x = np.clip(np.asarray(x, dtype=float), 0.0, 1.0)
     # Scale input to the B-spline support [0, n+1]
     t = (n + 1) * x
 
