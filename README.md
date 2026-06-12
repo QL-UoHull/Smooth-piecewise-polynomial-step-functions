@@ -1,12 +1,12 @@
 # Smooth Piecewise Polynomial Step Functions
 
-Python implementation of **recursive piecewise polynomial smooth step functions**, with comparison against classical polynomial constructions (cubic smoothstep, quintic smootherstep, and higher-order variants).
+Python implementation of **recursive piecewise polynomial smooth step functions**, with comparison against classical polynomial constructions (cubic smoothstep, quintic smootherstep, and higher-order generalisations).
 
 ## Overview
 
-A smooth step function transitions from 0 to 1 over an interval while remaining smooth at the boundaries — appearing flat (zero derivatives) at each end. These functions appear in computer graphics, geometric modelling, numerical smoothing, and approximation theory.
+A smooth step function transitions from 0 to 1 over an interval while remaining smooth at the boundaries — appearing flat (zero derivatives) at each end. These functions appear in computer graphics, interpolation, easing functions, and geometric modelling.
 
-The classical approach constructs a **single polynomial** of degree $2n+1$ that satisfies endpoint interpolation conditions. This work demonstrates an alternative: a **recursive piecewise polynomial** construction with lower degree per piece and a natural hierarchical structure.
+The classical approach constructs a **single polynomial** of degree $2n+1$ that satisfies endpoint interpolation conditions. This work demonstrates an alternative: a **recursive piecewise polynomial** construction that achieves the same smoothness with lower polynomial degree per piece.
 
 | Smoothness | Classical | Recursive |
 |:---:|:---:|:---:|
@@ -105,7 +105,9 @@ The recursive construction is obtained by integrating the cardinal uniform B-spl
 
 $$B_n(t) = \frac{1}{n!} \sum_{j=0}^{n+1} (-1)^j \binom{n+1}{j} (t-j)_+^{n},$$
 
-where $(u)_+ = \max(u,0)$. Integrating this from $0$ to $t$ gives
+where $(u)_+ = \max(u,0)$. Here $(\cdot)_+$ denotes the **positive-part operator**, so $(y)_+$ means “the positive part of $y$”, i.e. $\max(y,0)$.
+
+Integrating this from $0$ to $t$ gives
 
 $$S_n(t) = \frac{1}{(n+1)!} \sum_{j=0}^{n+1} (-1)^j \binom{n+1}{j} (t-j)_+^{n+1},$$
 
@@ -113,7 +115,9 @@ and the normalised smooth step on $[0,1]$ is therefore
 
 $$T_n(x) = S_n\bigl((n+1)x\bigr) = \frac{1}{(n+1)!} \sum_{j=0}^{n+1} (-1)^j \binom{n+1}{j} \bigl((n+1)x - j\bigr)_+^{\,n+1}.$$
 
-This formula is not introduced here as a new formula; it is the integrated cardinal B-spline truncated-power representation specialised to the unit interval. A standard reference for the underlying B-spline formula is Carl de Boor, *A Practical Guide to Splines*, Springer, revised edition, 2001. The presentation in [`smooth_step/recursive.py`](smooth_step/recursive.py) is consistent with that standard cardinal B-spline representation.
+So there should **not** be a comma attached to the shoulder of $((n+1)x-j)$ in this expression; the intended notation is the standard positive-part operator $(\cdot)_+$.
+
+This formula is not introduced here as a new formula; it is the integrated cardinal B-spline truncated-power representation specialised to the unit interval. A standard reference for the underlying spline identity is Schoenberg’s work on cardinal splines, while the computer-graphics application is discussed in the paper cited above.
 
 This function is $C^n$ smooth, has $n+1$ polynomial pieces each of degree $n+1$, and satisfies $T_n(0)=0$, $T_n(1)=1$, and $T_n^{(k)}(0)=T_n^{(k)}(1)=0$ for $k=1,\ldots,n$.
 
