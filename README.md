@@ -113,7 +113,7 @@ $$S_n(t) = \frac{1}{(n+1)!} \sum_{j=0}^{n+1} (-1)^j \binom{n+1}{j} (t-j)_+^{n+1}
 
 and the normalised smooth step on $[0,1]$ is therefore
 
-$$T_n(x) = S_n\bigl((n+1)x\bigr) = \frac{1}{(n+1)!} \sum_{j=0}^{n+1} (-1)^j \binom{n+1}{j} \bigl((n+1)x - j\bigr)_+^{\,n+1}.$$
+$$T_n(x) = S_n\bigl((n+1)x\bigr) = \frac{1}{(n+1)!} \sum_{j=0}^{n+1} (-1)^j \binom{n+1}{j} \bigl((n+1)x - j\bigr)_+^{\n+1}.$$
 
 So there should **not** be a comma attached to the shoulder of $((n+1)x-j)$ in this expression; the intended notation is the standard positive-part operator $(\cdot)_+$.
 
