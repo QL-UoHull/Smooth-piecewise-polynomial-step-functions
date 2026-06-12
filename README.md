@@ -113,9 +113,9 @@ $$S_n(t) = \frac{1}{(n+1)!} \sum_{j=0}^{n+1} (-1)^j \binom{n+1}{j} (t-j)_+^{n+1}
 
 and the normalised smooth step on $[0,1]$ is therefore
 
-$$T_n(x) = S_n\bigl((n+1)x\bigr) = \frac{1}{(n+1)!} \sum_{j=0}^{n+1} (-1)^j \binom{n+1}{j} \bigl((n+1)x - j\bigr)_+^{n+1}.$$
+$$T_n(x) = S_n\bigl((n+1)x\bigr) = \frac{1}{(n+1)!} \sum_{j=0}^{n+1} (-1)^j \binom{n+1}{j} \bigl((n+1)x - j\bigr)_+^{n+1},$$
 
-So there should **not** be a comma attached to the shoulder of $((n+1)x-j)$ in this expression; the intended notation is the standard positive-part operator $(\cdot)_+$.
+where $(\cdot)_+$ denotes the standard positive-part operator.
 
 This formula is not introduced here as a new formula; it is the integrated cardinal B-spline truncated-power representation specialised to the unit interval. A standard reference for the underlying spline identity is Schoenberg’s work on cardinal splines, while the computer-graphics application is discussed in the paper cited above.
 
